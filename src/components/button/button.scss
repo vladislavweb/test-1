@@ -1,0 +1,23 @@
+.btn {
+  padding: 4px 6px;
+  border-radius: 4px;
+  border-color: transparent;
+  background-color: rgb(192, 192, 192);
+  cursor: pointer;
+  user-select: none;
+
+  span {
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: rgb(180, 180, 180);
+  }
+
+  &[disabled] {
+    background-color: #e8e8e8;
+    cursor: inherit;
+  }
+}
