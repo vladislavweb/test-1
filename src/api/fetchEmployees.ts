@@ -27,10 +27,10 @@ export const useFetchEmployees = (
       if (!chunks.length) return [];
 
       setTimeout(() => {
-        const result = [] as any;
+        const result = [];
 
         for (let i = 1; i <= pageNumber; i++) {
-          result.push(...chunks[i - 1]);
+          if (chunks[i - 1]) result.push(...chunks[i - 1]);
         }
 
         resolve(result);
@@ -39,7 +39,8 @@ export const useFetchEmployees = (
       .then((res) => {
         setEmployees(res);
         setHasMore(
-          filteredEmployees.length > CHUNK_SIZE && res.length === CHUNK_SIZE
+          filteredEmployees.length > CHUNK_SIZE &&
+            res.length < filteredEmployees.length
         );
       })
       .finally(() => {
