@@ -73,9 +73,6 @@ export const employeeSlice = createSlice({
 
       state.selectedEmployees = [];
     },
-    updateEmployees: (state, action: PayloadAction<Employee[]>) => {
-      // state.value = action.payload;
-    },
   },
 });
 
@@ -87,7 +84,6 @@ export const {
   editEmployeeData,
   createEmployee,
   deleteEmployee,
-  updateEmployees,
 } = employeeSlice.actions;
 
 export const getEmployees = (state: RootState) => state.employee.value;
