@@ -17,12 +17,14 @@ const CompanyTable = () => {
 
   const { isLoading, fetchedCompanies } = useFetchCompanies(page);
 
-  const observer: any = useRef();
+  const observer = useRef<IntersectionObserver | null>(null);
+
   const lastCompanyRowElement = useCallback(
-    (node: any) => {
+    (node: HTMLTableRowElement) => {
       if (isLoading) return;
 
       if (observer.current) observer.current.disconnect();
+
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           setPage((prevValue) => prevValue + 1);

@@ -18,7 +18,7 @@ const EmployeesTable = () => {
   const selectedCompanies = useAppSelector(getSelectedCompanies);
   const employees = useAppSelector(getEmployees);
   const selectedEmployees = useAppSelector(getSelectedEmployees);
-  const theadRef = useRef<any>();
+  const theadRef = useRef<HTMLTableSectionElement>(null);
   const [page, setPage] = useState(1);
 
   const { isLoading, hasMore, fetchedEmployees } = useFetchEmployees(
@@ -26,12 +26,13 @@ const EmployeesTable = () => {
     selectedCompanies
   );
 
-  const observer: any = useRef();
+  const observer = useRef<IntersectionObserver | null>(null);
   const lastEmployeeRowElement = useCallback(
-    (node: any) => {
+    (node: HTMLTableRowElement) => {
       if (isLoading) return;
 
       if (observer.current) observer.current.disconnect();
+
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPage((prevValue) => prevValue + 1);
@@ -49,8 +50,9 @@ const EmployeesTable = () => {
 
   useEffect(() => {
     setPage(1);
+
     if (theadRef.current) {
-      (theadRef.current as HTMLDivElement).scrollIntoView({
+      theadRef.current.scrollIntoView({
         block: "start",
         inline: "start",
       });
